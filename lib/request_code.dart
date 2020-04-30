@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'request/authorization_request.dart';
 import 'model/config.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'dart:io' show Platform;
 
 class RequestCode {
   final StreamController<String> _onCodeListener = new StreamController();
@@ -17,6 +18,13 @@ class RequestCode {
     _authorizationRequest = new AuthorizationRequest(config);
   }
 
+  String getUserAgent() {  
+    if (Platform.isIOS) {
+      return "Mozilla/5.0 (iPhone; CPU iPhone OS 13_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1";
+    }
+    return "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.117 Mobile Safari/537.36";
+  }
+
   Future<String> requestCode() async {
     var code;
     final String urlParams = _constructUrlParams();
@@ -25,6 +33,7 @@ class RequestCode {
         Uri.encodeFull("${_authorizationRequest.url}?$urlParams"),
         clearCookies: _authorizationRequest.clearCookies, 
         hidden: false,  
+        userAgent: getUserAgent(),
         rect: _config.screenSize
     );
 
