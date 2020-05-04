@@ -33,7 +33,7 @@ class RequestCode {
         Uri.encodeFull("${_authorizationRequest.url}?$urlParams"),
         clearCookies: _authorizationRequest.clearCookies, 
         hidden: false,  
-        userAgent: getUserAgent(),
+        userAgent: "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.117 Mobile Safari/537.36",
         rect: _config.screenSize
     );
 
