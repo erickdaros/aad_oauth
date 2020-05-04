@@ -37,7 +37,7 @@ class Config {
         this.tokenIdentifier = "Token",
       }) {
     this.authorizationUrl = isB2C
-        ? "https://$azureTenantName.b2clogin.com/$azureTenantName.onmicrosoft.com/oauth2/v2.0/authorize"
+        ? "https://$azureTenantName.b2clogin.com/$azureTenantName.onmicrosoft.com/$userFlow/oauth2/v2.0/authorize"
         : "https://login.microsoftonline.com/$azureTenantId/oauth2/v2.0/authorize";
     this.tokenUrl = isB2C
         ? "https://$azureTenantName.b2clogin.com/$azureTenantName.onmicrosoft.com/$userFlow/oauth2/v2.0/token"
