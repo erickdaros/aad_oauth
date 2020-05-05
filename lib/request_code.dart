@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
-import 'package:flutter/widgets.dart';
 import 'request/authorization_request.dart';
 import 'model/config.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
@@ -33,7 +31,7 @@ class RequestCode {
         Uri.encodeFull("${_authorizationRequest.url}?$urlParams"),
         clearCookies: _authorizationRequest.clearCookies, 
         hidden: false,  
-        userAgent: _config.userAgent,//getUserAgent(),
+        userAgent: getUserAgent(),
         rect: _config.screenSize
     );
 
@@ -45,7 +43,7 @@ class RequestCode {
         throw new Exception("Access denied or authentation canceled."); 
       }
       
-      if (uri.queryParameters["code"] != null) {
+      if (url.contains(_config.redirectUri.split("://")[1].split("/")[0]) && uri.queryParameters["code"] != null) {
         _webView.close();
         _onCodeListener.add(uri.queryParameters["code"]);
       }       
