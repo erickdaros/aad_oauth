@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class Config {
+  final String appbarTitle;
+  final Color appbarColor;
   final String azureTenantId;
   final String azureTenantName;
   final String userFlow;
@@ -20,6 +23,8 @@ class Config {
   String tokenIdentifier;
 
   Config({
+    this.appbarTitle = '',
+    this.appbarColor = Colors.white,
     this.azureTenantId,
     this.clientId,
     this.scope,

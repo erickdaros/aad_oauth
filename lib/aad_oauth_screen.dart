@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -78,6 +79,13 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
     return queryParams.join("&");
   }
 
+  String getUserAgent() {  
+    if (Platform.isIOS) {   
+      return "Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1";
+    }
+    return "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.117 Mobile Safari/537.36";
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -87,7 +95,8 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(""),
+        title: Text(widget.config.appbarTitle),
+        backgroundColor: widget.config.appbarColor,
         // This drop down menu demonstrates that Flutter widgets can be shown over the web view.
         actions: <Widget>[
           // NavigationControls(_controller.future),
@@ -99,8 +108,7 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
           Builder(builder: (BuildContext context) {
             return WebView(
               initialUrl: Uri.encodeFull("${widget._authorizationRequest.url}?$urlParams"),
-              userAgent:
-                  "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.117 Mobile Safari/537.36",
+              userAgent: getUserAgent(),
               javascriptMode: JavascriptMode.unrestricted,
               onWebViewCreated: (WebViewController webViewController) {
                 _controller.complete(webViewController);
