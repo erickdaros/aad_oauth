@@ -1,5 +1,8 @@
 library aad_oauth;
 
+import 'package:aad_oauth/aad_oauth_screen.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
 import 'model/config.dart';
 import 'package:flutter/material.dart';
 import 'helper/auth_storage.dart';
@@ -10,14 +13,16 @@ import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AadOAuth {
-  static Config _config;
+  Config _config;
+  BuildContext _context;
   AuthStorage _authStorage;
   Token _token;
   RequestCode _requestCode;
   RequestToken _requestToken;
 
-  AadOAuth(Config config) {
+  AadOAuth(Config config, BuildContext context) {
     _config = config;
+    _context = context;
     _authStorage = new AuthStorage(tokenIdentifier: config.tokenIdentifier);
     _requestCode = new RequestCode(_config);
     _requestToken = new RequestToken(_config);
@@ -29,13 +34,11 @@ class AadOAuth {
 
   Future<void> login() async {
     await _removeOldTokenOnFirstLogin();
-    if (!Token.tokenIsValid(_token) )
-      await _performAuthorization();
+    if (!Token.tokenIsValid(_token)) await _performAuthorization();
   }
 
   Future<String> getAccessToken() async {
-    if (!Token.tokenIsValid(_token) )
-      await _performAuthorization();
+    if (!Token.tokenIsValid(_token)) await _performAuthorization();
 
     return _token.accessToken;
   }
@@ -46,9 +49,10 @@ class AadOAuth {
 
   Future<void> logout() async {
     await _authStorage.clear();
-    await _requestCode.clearCookies();
+    //await _requestCode.clearCookies();
+    await AadOauthScreen(config: _config,).cookieManager.clearCookies();
     _token = null;
-    AadOAuth(_config);
+    AadOAuth(_config, _context);
   }
 
   Future<void> _performAuthorization() async {
@@ -75,7 +79,12 @@ class AadOAuth {
   Future<void> _performFullAuthFlow() async {
     String code;
     try {
-      code = await _requestCode.requestCode();
+      code = await Navigator.push(
+        _context,
+        MaterialPageRoute(builder: (context) => AadOauthScreen(config: _config,)),
+      );
+
+      //TODO COPIAR ISSO
       _token = await _requestToken.requestToken(code);
     } catch (e) {
       rethrow;

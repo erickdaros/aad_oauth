@@ -17,7 +17,7 @@ class RequestCode {
   }
 
   String getUserAgent() {  
-    if (Platform.isIOS) {
+    if (Platform.isIOS) {   
       return "Mozilla/5.0 (iPhone; CPU iPhone OS 13_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1";
     }
     return "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.117 Mobile Safari/537.36";

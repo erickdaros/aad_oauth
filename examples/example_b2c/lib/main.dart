@@ -36,38 +36,37 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   static final Config configB2Ca = new Config(
-    "YOUR_TENANT_ID",
-    "YOUR_CLIENT_ID",
-    "YOUR_CLIENT_ID offline_access",
-    "https://login.live.com/oauth20_desktop.srf",
-    clientSecret: "YOUR_CLIENT_SECRET",
+    azureTenantId: "3e803cd6-b130-4acb-9f08-951825ab324e",
+    clientId: "9f365761-4da4-4011-8bf0-3ebd732d6fd3",
+    scope: "9f365761-4da4-4011-8bf0-3ebd732d6fd3 offline_access",
+    redirectUri: "https://login.live.com/oauth20_desktop.srf",
+    clientSecret: "-Up};d>5vdm0{]oGXkjouzZM",
     isB2C: true,
-    azureTenantName: "YOUR_TENANT_NAME",
-    userFlow: "YOUR_USER_FLOW___USER_FLOW_A",
+    azureTenantName: "b2ccenibra",
+    userFlow: "B2C_1_AppCENIBRA_Comunidade_Google_InscreverEntrarV2",
   );
 
   static final Config configB2Cb = new Config(
-    "YOUR_TENANT_ID",
-    "YOUR_CLIENT_ID",
-    "YOUR_CLIENT_ID offline_access",
-    "https://login.live.com/oauth20_desktop.srf",
-    clientSecret: "YOUR_CLIENT_SECRET",
+    azureTenantId: "3e803cd6-b130-4acb-9f08-951825ab324e",
+    clientId: "9f365761-4da4-4011-8bf0-3ebd732d6fd3",
+    scope: "9f365761-4da4-4011-8bf0-3ebd732d6fd3 offline_access",
+    redirectUri: "https://login.live.com/oauth20_desktop.srf",
+    clientSecret: "-Up};d>5vdm0{]oGXkjouzZM",
     isB2C: true,
-    azureTenantName: "YOUR_TENANT_NAME",
-    userFlow: "YOUR_USER_FLOW___USER_FLOW_B",
+    azureTenantName: "b2ccenibra",
+    userFlow: "B2C_1_AppCENIBRA_Comunidade_InscreverEntrarV2",
   );
 
   //You can have as many B2C flows as you want
 
-  final AadOAuth oauthB2Ca = AadOAuth(configB2Ca);
-  final AadOAuth oauthB2Cb = AadOAuth(configB2Cb);
-
   Widget build(BuildContext context) {
+    final AadOAuth oauthB2Ca = AadOAuth(configB2Ca, context);
+    final AadOAuth oauthB2Cb = AadOAuth(configB2Cb, context);
     // adjust window size for browser login
     var screenSize = MediaQuery.of(context).size;
-    var rectSize =  Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height - 25);
+    var rectSize =
+        Rect.fromLTWH(0.0, 25.0, screenSize.width, screenSize.height - 25);
     oauthB2Ca.setWebViewScreenSize(rectSize);
 
     return new Scaffold(
@@ -143,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
       String accessToken = await oAuth.getAccessToken();
       showMessage("Logged in successfully, your access token: $accessToken");
     } catch (e) {
-      showError(e);
+      //showError(e);
     }
   }
 
