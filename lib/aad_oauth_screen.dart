@@ -44,10 +44,7 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
 
-
   bool isLoading = true;
-
-  
 
   String _userAgent = '<unknown>';
   String _webUserAgent = '<unknown>';
@@ -69,8 +66,8 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
     });
   }
 
-
-  String _constructUrlParams() => _mapToQueryParams(widget._authorizationRequest.parameters);
+  String _constructUrlParams() =>
+      _mapToQueryParams(widget._authorizationRequest.parameters);
 
   String _mapToQueryParams(Map<String, String> params) {
     final queryParams = <String>[];
@@ -79,8 +76,8 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
     return queryParams.join("&");
   }
 
-  String getUserAgent() {  
-    if (Platform.isIOS) {   
+  String getUserAgent() {
+    if (Platform.isIOS) {
       return "Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1 Mobile/15E148 Safari/604.1";
     }
     return "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.117 Mobile Safari/537.36";
@@ -88,27 +85,34 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     widget.menu = SampleMenu(_controller.future);
 
     final String urlParams = _constructUrlParams();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.config.appbarTitle),
+        title: Text(
+          widget.config.appbarTitle,
+          style: TextStyle(
+            color: widget.config.appbarContentColor,
+          ),
+        ),
         backgroundColor: widget.config.appbarColor,
         brightness: widget.config.appbarBrightness,
-        // This drop down menu demonstrates that Flutter widgets can be shown over the web view.
+        iconTheme: IconThemeData(
+          color: widget.config.appbarContentColor,
+        ),
         actions: <Widget>[
           // NavigationControls(_controller.future),
-          //widget.menu
+          // widget.menu
         ],
       ),
       body: Stack(
         children: <Widget>[
           Builder(builder: (BuildContext context) {
             return WebView(
-              initialUrl: Uri.encodeFull("${widget._authorizationRequest.url}?$urlParams"),
+              initialUrl: Uri.encodeFull(
+                  "${widget._authorizationRequest.url}?$urlParams"),
               userAgent: getUserAgent(),
               javascriptMode: JavascriptMode.unrestricted,
               onWebViewCreated: (WebViewController webViewController) {
@@ -177,7 +181,6 @@ class NavigationControls extends StatelessWidget {
       : assert(_webViewControllerFuture != null);
 
   final Future<WebViewController> _webViewControllerFuture;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -378,8 +381,6 @@ class SampleMenu extends StatelessWidget {
       content: Text(message),
     ));
   }
-
-  
 
   void _onNavigationDelegateExample(
       WebViewController controller, BuildContext context) async {
