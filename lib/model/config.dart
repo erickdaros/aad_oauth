@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 
 class Config {
   final String appbarTitle;
+  final Color appbarContentColor;
   final Color appbarColor;
   final Brightness appbarBrightness;
   final String azureTenantId;
@@ -25,7 +26,8 @@ class Config {
 
   Config({
     this.appbarTitle = '',
-    this.appbarBrightness = Brightness.light,
+    this.appbarContentColor = Colors.black,
+    this.appbarBrightness = Brightness.light, 
     this.appbarColor = Colors.white,
     this.azureTenantId,
     this.clientId,
