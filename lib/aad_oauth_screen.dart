@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -159,7 +160,18 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
               gestureNavigationEnabled: true,
             );
           }),
-          isLoading ? Center(child: CircularProgressIndicator()) : Container()
+          isLoading
+              ? Container(
+                  color: Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black,
+                  child: Expanded(
+                    child: Center(
+                      child: Platform.isIOS ? CupertinoActivityIndicator(
+                        radius: 15,
+                      ) : CircularProgressIndicator(),
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
