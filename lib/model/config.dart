@@ -28,7 +28,7 @@ class Config {
 
   Config({
     this.appbarTitle = '',
-    this.appbarElevation = 4,
+    this.appbarElevation = 4.0,
     this.appbarContentColor = Colors.black,
     this.appbarBrightness = Brightness.light, 
     this.appbarColor = Colors.white,
