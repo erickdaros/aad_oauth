@@ -92,6 +92,7 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: widget.config.appbarElevation,
         title: Text(
           widget.config.appbarTitle,
           style: TextStyle(
@@ -163,7 +164,7 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
           isLoading
               ? SizedBox.expand(
                 child: Container(
-                  color: Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black,
+                  color: widget.config.loadingBodyColor,
                   child: Center(
                       child: Platform.isIOS ? CupertinoActivityIndicator(
                         radius: 15,

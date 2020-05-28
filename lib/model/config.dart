@@ -25,6 +25,7 @@ class Config {
   String tokenIdentifier;
 
   final double appbarElevation;
+  final Color loadingBodyColor;
 
   Config({
     this.appbarTitle = '',
@@ -32,6 +33,7 @@ class Config {
     this.appbarContentColor = Colors.black,
     this.appbarBrightness = Brightness.light, 
     this.appbarColor = Colors.white,
+    this.loadingBodyColor = Colors.white,
     this.azureTenantId,
     this.clientId,
     this.scope,
