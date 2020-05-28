@@ -161,16 +161,16 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
             );
           }),
           isLoading
-              ? Container(
+              ? SizedBox.expand(
+                child: Container(
                   color: Theme.of(context).brightness == Brightness.light ? Colors.white : Colors.black,
-                  child: Expanded(
-                    child: Center(
+                  child: Center(
                       child: Platform.isIOS ? CupertinoActivityIndicator(
                         radius: 15,
                       ) : CircularProgressIndicator(),
                     ),
-                  ),
-                )
+                ),
+              )
               : Container(),
         ],
       ),
