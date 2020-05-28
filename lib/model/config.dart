@@ -24,8 +24,11 @@ class Config {
   String userAgent;
   String tokenIdentifier;
 
+  final double appbarElevation;
+
   Config({
     this.appbarTitle = '',
+    this.appbarElevation = 4,
     this.appbarContentColor = Colors.black,
     this.appbarBrightness = Brightness.light, 
     this.appbarColor = Colors.white,
