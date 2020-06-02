@@ -52,6 +52,7 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
 
   @override
   void initState() {
+    widget.cookieManager.clearCookies();
     super.initState();
     //initUserAgentState();
   }
@@ -134,7 +135,6 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
               onPageStarted: (String url) {
                 print('Page started loading: $url');
                 if (!isLoading) {
-                  widget.cookieManager.clearCookies();
                   setState(() {
                     isLoading = true;
                   });
@@ -224,8 +224,9 @@ class NavigationControls extends StatelessWidget {
                       } else {
                         Scaffold.of(context).showSnackBar(
                           const SnackBar(
-                              content:
-                                  Text("Nenhum item do histórico para voltar")),
+                            content:
+                                Text("Nenhum item do histórico para voltar"),
+                          ),
                         );
                         return;
                       }
@@ -241,8 +242,9 @@ class NavigationControls extends StatelessWidget {
                       } else {
                         Scaffold.of(context).showSnackBar(
                           const SnackBar(
-                              content: Text(
-                                  "Nenhum item do histórico para avançar")),
+                            content:
+                                Text("Nenhum item do histórico para avançar"),
+                          ),
                         );
                         return;
                       }
