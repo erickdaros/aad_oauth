@@ -55,6 +55,10 @@ class AadOAuth {
     AadOAuth(_config, _context);
   }
 
+  Future<void> clearCookies() async {
+    await AadOauthScreen(config: _config,).cookieManager.clearCookies();
+  }
+
   Future<void> _performAuthorization() async {
     // load token from cache
     _token = await _authStorage.loadTokenToCache();

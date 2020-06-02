@@ -45,7 +45,7 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
 
-  bool isLoading = true;
+  bool isLoading = false;
 
   String _userAgent = '<unknown>';
   String _webUserAgent = '<unknown>';
@@ -133,6 +133,12 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
               },
               onPageStarted: (String url) {
                 print('Page started loading: $url');
+                if (!isLoading) {
+                  widget.cookieManager.clearCookies();
+                  setState(() {
+                    isLoading = true;
+                  });
+                }
               },
               onPageFinished: (String url) {
                 print('Page finished loading: $url');
@@ -158,20 +164,22 @@ class _AadOauthScreenState extends State<AadOauthScreen> {
                   isLoading = false;
                 });
               },
-              gestureNavigationEnabled: true,
+              gestureNavigationEnabled: false,
             );
           }),
           isLoading
               ? SizedBox.expand(
-                child: Container(
-                  color: widget.config.loadingBodyColor,
-                  child: Center(
-                      child: Platform.isIOS ? CupertinoActivityIndicator(
-                        radius: 15,
-                      ) : CircularProgressIndicator(),
+                  child: Container(
+                    color: widget.config.loadingBodyColor,
+                    child: Center(
+                      child: Platform.isIOS
+                          ? CupertinoActivityIndicator(
+                              radius: 15,
+                            )
+                          : CircularProgressIndicator(),
                     ),
-                ),
-              )
+                  ),
+                )
               : Container(),
         ],
       ),
